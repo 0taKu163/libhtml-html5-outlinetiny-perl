@@ -1,6 +1,10 @@
 Revision history for HTML-HTML5-OutlineTiny
 
-0.001  Thu Jul 28 09:39:26 2011 GMT
+0.002  Sat Jul 30 07:06:03 2011 GMT
+    ! rank's code clean up.
+    ! FIX: in tests. use ->{'outlinee'}{'outline'} instead of ->{'section'}
+    ! rewrite all tests to improve readbilities.
 
-       Initial release.
+0.001  Thu Jul 28 09:39:26 2011 GMT
+    + Initial release.
 

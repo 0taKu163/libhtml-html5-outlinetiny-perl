@@ -6,7 +6,7 @@ use parent qw(Exporter);
 
 # $Id$
 
-use version; our $VERSION = '0.001';
+use version; our $VERSION = '0.002';
 
 our @EXPORT_OK = qw(travel_doctree build_outline_step rank);
 
@@ -44,18 +44,18 @@ sub rank {
     my($node) = @_;
     my $tagname = lc $node->[0];
     if ($tagname eq 'hgroup') {
-        my $rank = {'x' => $RANK_MIN};
+        my $rank = $RANK_MIN;
         travel_doctree(sub{
             my($r, $n, $event_type) = @_;
             return $r if $event_type ne 'entering';
             my $s = lc $n->[0];
             return $r if $s eq 'hgroup';
             if (my $i = $heading{$s}) {
-                $r->{'x'} = $i > $r->{'x'} ? $i : $r->{'x'};
+                $rank = $i > $rank ? $i : $rank;
             }
             return $r;
-        }, $rank, $node);
-        return $rank->{'x'} > $RANK_MIN ? $rank->{'x'} : $heading{'hgroup'};
+        }, 1, $node);
+        return $rank > $RANK_MIN ? $rank : $heading{'hgroup'};
     }
     elsif (my $i = $heading{$tagname}) {
         return $i;
@@ -91,10 +91,10 @@ sub build_outline_step {
         $c->{'outlinee'} = {'element' => $node, 'outline' => [$c->{'section'}]};
     }
     elsif ($exiting && $tos && $sectioning_content{$tagname}) {
-        my $outline = $c->{'outlinee'}{'outline'};
+        my $siblings = $c->{'outlinee'}{'outline'};
         $c->{'outlinee'} = pop @{$c->{'stack'}};
         $c->{'section'} = $c->{'outlinee'}{'outline'}[-1];
-        push @{$c->{'section'}{'child'}}, @{$outline};
+        push @{$c->{'section'}{'child'}}, @{$siblings};
     }
     elsif ($exiting && $tos && $sectioning_root{$tagname}) {
         $c->{'outlinee'} = pop @{$c->{'stack'}};
@@ -108,19 +108,19 @@ sub build_outline_step {
         return;
     }
     elsif ($entering && $c->{'outlinee'} && $heading{$tagname}) {
-        my $outlinee = $c->{'outlinee'};
-        my $outline = $c->{'outlinee'}{'outline'};
         if (! $c->{'section'}{'heading'}) {
             $c->{'section'}{'heading'} = $node;
         }
-        elsif (rank($node) >= rank($outline->[-1]{'heading'})) {
+        elsif (rank($node) >= rank($c->{'outlinee'}{'outline'}[-1]{'heading'})) {
             $c->{'section'} = {'element' => undef, 'heading' => $node, 'child' => []};
-            push @{$outline}, $c->{'section'};
+            push @{$c->{'outlinee'}{'outline'}}, $c->{'section'};
         }
         else {
             my $candidate = $c->{'section'};
             while (rank($node) >= rank($candidate->{'heading'})) {
-                $candidate = _find_candidate_parent($c, $candidate, $outline); 
+                $candidate = _find_candidate_parent(
+                    $c, $candidate, $c->{'outlinee'}{'outline'},
+                ); 
             }
             $c->{'section'} = {'element' => undef, 'heading' => $node, 'child' => []};
             push @{$candidate->{'child'}}, $c->{'section'};
@@ -131,8 +131,8 @@ sub build_outline_step {
 }
 
 sub _find_candidate_parent {
-    my($c, $candidate, $outlinee_child) = @_;
-    my @todo = (undef, $outlinee_child, 0);
+    my($c, $candidate, $outline) = @_;
+    my @todo = (undef, $outline, 0);
     while (@todo) {
         my $i = pop @todo;
         my $list = pop @todo;
@@ -159,7 +159,7 @@ HTML::HTML5::OutlineTiny - examination code to study HTML5 Content Outline
 
 =head1 VERSION
 
-0.001
+0.002
 
 =head1 SYNOPSIS
 
@@ -178,7 +178,7 @@ HTML::HTML5::OutlineTiny - examination code to study HTML5 Content Outline
                 ],
             ],
         ],
-    );
+    )->{'outlinee'}{'outline'};
 
 =head1 DESCRIPTION
 
@@ -203,6 +203,7 @@ None
 =head1 SEE ALSO
 
 L<http://www.w3.org/TR/html5/sections.html> section 4.4.11
+L<HTML::HTML5::Outliner>
 
 =head1 AUTHOR
 

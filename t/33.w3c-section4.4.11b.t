@@ -48,955 +48,1278 @@ my $body = ['body', $e1_h4, $e2_p, $e3_section];
 
     it '<body> create section';
 
+    it '<body> create section';
+
         is_deeply build_outline_step({
-            'stack' => [],
             'outlinee' => undef,
             'section' => undef,
+            'stack' => [],
         }, $body, 'entering'), do{
-            my $section_body = {
-                'element' => $body,
-                'heading' => undef,
-                'child' => [],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => undef,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         } , spec;
 
     it '1 <h4> set header';
 
         is_deeply build_outline_step(do{
-            my $section_body = {
-                'element' => $body,
-                'heading' => undef,
-                'child' => [],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => undef,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         }, $e1_h4, 'entering'), do{
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => $e1_h4,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
+                'stack' => [
+                    {'element' => $e1_h4},
+                ],
             };
-            +{
-                'stack' => [{'element' => $e1_h4}],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
-            };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         } , spec;
 
     it '1 </h4> drop';
 
         is_deeply build_outline_step(do{
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => $e1_h4,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
+                'stack' => [
+                    {'element' => $e1_h4},
+                ],
             };
-            +{
-                'stack' => [{'element' => $e1_h4}],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
-            };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         }, $e1_h4, 'exiting'), do{
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => $e1_h4,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         } , spec;
 
     it '2 <p> nop';
 
         is_deeply build_outline_step(do{
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => $e1_h4,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         }, $e2_p, 'entering'), do{
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => $e1_h4,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         } , spec;
 
     it '2 </p> nop';
 
         is_deeply build_outline_step(do{
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => $e1_h4,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         }, $e2_p, 'exiting'), do{
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => $e1_h4,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         } , spec;
 
     it '3 <section> create section';
 
         is_deeply build_outline_step(do{
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
-            };
-        }, $e3_section, 'entering'), do{
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => undef,
-                'child' => [],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [{'element' => $body, 'outline' => [$section_body]}],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => $e1_h4,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e3_section,
+                'section' => undef,
+                'stack' => [],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
+        }, $e3_section, 'entering'), do{
+            my $v = {
+                'outlinee' => {
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => undef,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
+            };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e3_section
+            $v;
         } , spec;
 
     it '3 1 <h2> add heading';
 
         is_deeply build_outline_step(do{
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => undef,
-                'child' => [],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [{'element' => $body, 'outline' => [$section_body]}],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => undef,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e3_section,
-            };
-        }, $e31_h2, 'entering'), do{
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
+                'section' => undef,
                 'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
+            };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e3_section
+            $v;
+        }, $e31_h2, 'entering'), do{
+            my $v = {
+                'outlinee' => {
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
                     {'element' => $e31_h2},
                 ],
-                'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
-                },
-                'section' => $section_e3_section,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e3_section
+            $v;
         } , spec;
 
     it '3 1 </h2> drop';
 
         is_deeply build_outline_step(do{
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
                     {'element' => $e31_h2},
                 ],
-                'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
-                },
-                'section' => $section_e3_section,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e3_section
+            $v;
         }, $e31_h2, 'exiting'), do{
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e3_section,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e3_section
+            $v;
         } , spec;
 
     it '3 2 <p> nop';
 
         is_deeply build_outline_step(do{
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e3_section,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e3_section
+            $v;
         }, $e32_p, 'entering'), do{
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e3_section,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e3_section
+            $v;
         } , spec;
 
     it '3 2 </p> nop';
 
         is_deeply build_outline_step(do{
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e3_section,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e3_section
+            $v;
         }, $e32_p, 'exiting'), do{
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e3_section,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e3_section
+            $v;
         } , spec;
 
     it '3 3 <h6> create section';
 
         is_deeply build_outline_step(do{
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e3_section,
-            };
-        }, $e33_h6, 'entering'), do{
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
+                'section' => undef,
                 'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
+            };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e3_section
+            $v;
+        }, $e33_h6, 'entering'), do{
+            my $v = {
+                'outlinee' => {
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
                     {'element' => $e33_h6},
                 ],
-                'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
-                },
-                'section' => $section_e33_anon,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1] # section_e3_section
+                ->{'child'}[-1]; # section_e33_anon
+            $v;
         } , spec;
 
     it '3 3 </h6> drop';
 
         is_deeply build_outline_step(do{
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
                     {'element' => $e33_h6},
                 ],
-                'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
-                },
-                'section' => $section_e33_anon,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1] # section_e3_section
+                ->{'child'}[-1]; # section_e33_anon
+            $v;
         }, $e33_h6, 'exiting'), do{
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                    ],
                 },
-                'section' => $section_e33_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1] # section_e3_section
+                ->{'child'}[-1]; # section_e33_anon
+            $v;
         } , spec;
 
     it '3 4 <p> nop';
 
         is_deeply build_outline_step(do{
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                    ],
                 },
-                'section' => $section_e33_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1] # section_e3_section
+                ->{'child'}[-1]; # section_e33_anon
+            $v;
         }, $e34_p, 'entering'), do{
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                    ],
                 },
-                'section' => $section_e33_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1] # section_e3_section
+                ->{'child'}[-1]; # section_e33_anon
+            $v;
         } , spec;
 
     it '3 4 </p> nop';
 
         is_deeply build_outline_step(do{
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                    ],
                 },
-                'section' => $section_e33_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1] # section_e3_section
+                ->{'child'}[-1]; # section_e33_anon
+            $v;
         }, $e34_p, 'exiting'), do{
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                    ],
                 },
-                'section' => $section_e33_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1] # section_e3_section
+                ->{'child'}[-1]; # section_e33_anon
+            $v;
         } , spec;
 
     it '3 5 <h1> create section';
 
+        # elsif ($entering && $c->{'outlinee'} && $heading{$tagname}) {
+        #    elsif (rank($node) >= rank($c->{'outlinee'}{'outline'}[-1]{'heading'})) {
+
         is_deeply build_outline_step(do{
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
-                'outlinee' => {
-                    'element' => $e3_section, 'outline' => [$section_e3_section],
-                },
-                'section' => $section_e33_anon,
-            };
-        }, $e35_h1, 'entering'), do{
-            my $section_e35_anon = {
-                'element' => undef,
-                'heading' => $e35_h1,
-                'child' => [],
-            };
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                    {'element' => $e35_h1},
-                ],
+            my $v = {
                 'outlinee' => {
                     'element' => $e3_section,
-                    'outline' => [$section_e3_section, $section_e35_anon],
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                    ],
                 },
-                'section' => $section_e35_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1] # section_e3_section
+                ->{'child'}[-1]; # section_e33_anon
+            $v;
+        }, $e35_h1, 'entering'), do{
+            my $v = {
+                'outlinee' => {
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                        {   # section_e35_anon
+                            'element' => undef,
+                            'heading' => $e35_h1,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                    {'element' => $e35_h1},
+                ],
+            };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e35_anon
+            $v;
         } , spec;
 
     it '3 5 </h1> drop';
 
         is_deeply build_outline_step(do{
-            my $section_e35_anon = {
-                'element' => undef,
-                'heading' => $e35_h1,
-                'child' => [],
-            };
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $e3_section,
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                        {   # section_e35_anon
+                            'element' => undef,
+                            'heading' => $e35_h1,
+                            'child' => [],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
                     {'element' => $e35_h1},
                 ],
-                'outlinee' => {
-                    'element' => $e3_section,
-                    'outline' => [$section_e3_section, $section_e35_anon],
-                },
-                'section' => $section_e35_anon,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e35_anon
+            $v;
         }, $e35_h1, 'exiting'), do{
-            my $section_e35_anon = {
-                'element' => undef,
-                'heading' => $e35_h1,
-                'child' => [],
-            };
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
                     'element' => $e3_section,
-                    'outline' => [$section_e3_section, $section_e35_anon],
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                        {   # section_e35_anon
+                            'element' => undef,
+                            'heading' => $e35_h1,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e35_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e35_anon
+            $v;
         } , spec;
 
     it '3 6 <p> nop';
 
         is_deeply build_outline_step(do{
-            my $section_e35_anon = {
-                'element' => undef,
-                'heading' => $e35_h1,
-                'child' => [],
-            };
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
                     'element' => $e3_section,
-                    'outline' => [$section_e3_section, $section_e35_anon],
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                        {   # section_e35_anon
+                            'element' => undef,
+                            'heading' => $e35_h1,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e35_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e35_anon
+            $v;
         }, $e36_p, 'entering'), do{
-            my $section_e35_anon = {
-                'element' => undef,
-                'heading' => $e35_h1,
-                'child' => [],
-            };
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
                     'element' => $e3_section,
-                    'outline' => [$section_e3_section, $section_e35_anon],
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                        {   # section_e35_anon
+                            'element' => undef,
+                            'heading' => $e35_h1,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e35_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e35_anon
+            $v;
         } , spec;
 
     it '3 6 </p> nop';
 
         is_deeply build_outline_step(do{
-            my $section_e35_anon = {
-                'element' => undef,
-                'heading' => $e35_h1,
-                'child' => [],
-            };
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
                     'element' => $e3_section,
-                    'outline' => [$section_e3_section, $section_e35_anon],
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                        {   # section_e35_anon
+                            'element' => undef,
+                            'heading' => $e35_h1,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e35_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e35_anon
+            $v;
         }, $e36_p, 'exiting'), do{
-            my $section_e35_anon = {
-                'element' => undef,
-                'heading' => $e35_h1,
-                'child' => [],
-            };
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
                     'element' => $e3_section,
-                    'outline' => [$section_e3_section, $section_e35_anon],
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                        {   # section_e35_anon
+                            'element' => undef,
+                            'heading' => $e35_h1,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e35_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e35_anon
+            $v;
         } , spec;
 
     it '3 </section> add child';
 
         is_deeply build_outline_step(do{
-            my $section_e35_anon = {
-                'element' => undef,
-                'heading' => $e35_h1,
-                'child' => [],
-            };
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [],
-            };
-            +{
-                'stack' => [
-                    {'element' => $body, 'outline' => [$section_body]},
-                ],
+            my $v = {
                 'outlinee' => {
                     'element' => $e3_section,
-                    'outline' => [$section_e3_section, $section_e35_anon],
+                    'outline' => [
+                        {   # section_e3_section
+                            'element' => $e3_section,
+                            'heading' => $e31_h2,
+                            'child' => [
+                                {   # section_e33_anon
+                                    'element' => undef,
+                                    'heading' => $e33_h6,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                        {   # section_e35_anon
+                            'element' => undef,
+                            'heading' => $e35_h1,
+                            'child' => [],
+                        },
+                    ],
                 },
-                'section' => $section_e35_anon,
+                'section' => undef,
+                'stack' => [
+                    {
+                        'element' => $body,
+                        'outline' => [
+                            {   # section_body
+                                'element' => $body,
+                                'heading' => $e1_h4,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                ],
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_e35_anon
+            $v;
         }, $e3_section, 'exiting'), do{
-            my $section_e35_anon = {
-                'element' => undef,
-                'heading' => $e35_h1,
-                'child' => [],
-            };
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [$section_e3_section, $section_e35_anon],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => $e1_h4,
+                            'child' => [
+                                {   # section_e3_section
+                                    'element' => $e3_section,
+                                    'heading' => $e31_h2,
+                                    'child' => [
+                                        {   # section_e33_anon
+                                            'element' => undef,
+                                            'heading' => $e33_h6,
+                                            'child' => [],
+                                        },
+                                    ],
+                                },
+                                {   # section_e35_anon
+                                    'element' => undef,
+                                    'heading' => $e35_h1,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         } , spec;
 
     it '</body>';
 
         my $c = do{
-            my $section_e35_anon = {
-                'element' => undef,
-                'heading' => $e35_h1,
-                'child' => [],
-            };
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [$section_e3_section, $section_e35_anon],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => $e1_h4,
+                            'child' => [
+                                {   # section_e3_section
+                                    'element' => $e3_section,
+                                    'heading' => $e31_h2,
+                                    'child' => [
+                                        {   # section_e33_anon
+                                            'element' => undef,
+                                            'heading' => $e33_h6,
+                                            'child' => [],
+                                        },
+                                    ],
+                                },
+                                {   # section_e35_anon
+                                    'element' => undef,
+                                    'heading' => $e35_h1,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         };
         ok ! build_outline_step($c, $body, 'exiting'), spec;
 
     it 'document end';
 
         is_deeply $c, do{
-            my $section_e35_anon = {
-                'element' => undef,
-                'heading' => $e35_h1,
-                'child' => [],
-            };
-            my $section_e33_anon = {
-                'element' => undef,
-                'heading' => $e33_h6,
-                'child' => [],
-            };
-            my $section_e3_section = {
-                'element' => $e3_section,
-                'heading' => $e31_h2,
-                'child' => [$section_e33_anon],
-            };
-            my $section_body = {
-                'element' => $body,
-                'heading' => $e1_h4,
-                'child' => [$section_e3_section, $section_e35_anon],
-            };
-            +{
+            my $v = {
+                'outlinee' => {
+                    'element' => $body,
+                    'outline' => [
+                        {   # section_body
+                            'element' => $body,
+                            'heading' => $e1_h4,
+                            'child' => [
+                                {   # section_e3_section
+                                    'element' => $e3_section,
+                                    'heading' => $e31_h2,
+                                    'child' => [
+                                        {   # section_e33_anon
+                                            'element' => undef,
+                                            'heading' => $e33_h6,
+                                            'child' => [],
+                                        },
+                                    ],
+                                },
+                                {   # section_e35_anon
+                                    'element' => undef,
+                                    'heading' => $e35_h1,
+                                    'child' => [],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                'section' => undef,
                 'stack' => [],
-                'outlinee' => {'element' => $body, 'outline' => [$section_body]},
-                'section' => $section_body,
             };
+            $v->{'section'} = $v->{'outlinee'}{'outline'}[-1]; # section_body
+            $v;
         }, spec;
 
     it 'should got outline';
 
-        is_deeply $c->{'section'}, {
-            'element' => $body,
-            'heading' => $e1_h4,
-            'child' => [
-                {
-                    'element' => $e3_section,
-                    'heading' => $e31_h2,
-                    'child' => [
-                        {
-                            'element' => undef,
-                            'heading' => $e33_h6,
-                            'child' => [],
-                        },
-                    ],
-                },
-                {
-                    'element' => undef,
-                    'heading' => $e35_h1,
-                    'child' => [],
-                },
-            ],
-        }, spec;
+        is_deeply $c->{'outlinee'}{'outline'}, [
+            {   # section_body
+                'element' => $body,
+                'heading' => $e1_h4,
+                'child' => [
+                    {   # section_e3_section
+                        'element' => $e3_section,
+                        'heading' => $e31_h2,
+                        'child' => [
+                            {   # section_e33_anon
+                                'element' => undef,
+                                'heading' => $e33_h6,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                    {   # section_e35_anon
+                        'element' => undef,
+                        'heading' => $e35_h1,
+                        'child' => [],
+                    },
+                ],
+            },
+        ], spec;
 }
 
 {
@@ -1008,28 +1331,30 @@ my $body = ['body', $e1_h4, $e2_p, $e3_section];
             'stack' => [],
             'outlinee' => undef,
             'section' => undef,
-        }, $body)->{'section'}, {
-            'element' => $body,
-            'heading' => $e1_h4,
-            'child' => [
-                {
-                    'element' => $e3_section,
-                    'heading' => $e31_h2,
-                    'child' => [
-                        {
-                            'element' => undef,
-                            'heading' => $e33_h6,
-                            'child' => [],
-                        },
-                    ],
-                },
-                {
-                    'element' => undef,
-                    'heading' => $e35_h1,
-                    'child' => [],
-                },
-            ],
-        }, spec;
+        }, $body)->{'outlinee'}{'outline'}, [
+            {   # section_body
+                'element' => $body,
+                'heading' => $e1_h4,
+                'child' => [
+                    {   # section_e3_section
+                        'element' => $e3_section,
+                        'heading' => $e31_h2,
+                        'child' => [
+                            {   # section_e33_anon
+                                'element' => undef,
+                                'heading' => $e33_h6,
+                                'child' => [],
+                            },
+                        ],
+                    },
+                    {   # section_e35_anon
+                        'element' => undef,
+                        'heading' => $e35_h1,
+                        'child' => [],
+                    },
+                ],
+            },
+        ], spec;
 }
 
 done_testing;
